@@ -1,10 +1,10 @@
 require 'mechanize'
 require 'nokogiri'
 
-class RakutenStocks
+class RakutenStock
   attr_accessor :user_id, :user_pwd, :homeid, :encode, :user_agent_alias
 
-  def initialize(user_id, user_pwd, homeid='STK_POS', encode='UTF-8' user_agent_alias='Windows Mozilla')
+  def initialize(user_id, user_pwd, homeid='STK_POS', encode='UTF-8', user_agent_alias='Windows Mozilla')
     @user_id = user_id
     @user_pwd = user_pwd
     @homeid = homeid # 初期値は保有商品一覧
