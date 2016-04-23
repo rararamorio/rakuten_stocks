@@ -24,5 +24,5 @@ Or install it yourself as:
 require 'rakuten_stocks'
 
 rakuten = RakutenStocks::Client.new('YourId', 'YourPwd')
-p rakuten.domestic_stocks #=> {:status=>'succeeded',:total=>{:appraisal_price_data=>..., :profit_loss_data=>...},:sp=>[...],:nisa=>[...]}
+p rakuten.domestic_stocks #=> {:status=>true,:total=>{:appraisal_price_data=>..., :profit_loss_data=>...},:sp=>[...],:nisa=>[...]}
 ```

@@ -24,11 +24,11 @@ module RakutenStocks
       contents = rakuten_login('STK_POS')
       
       if contents.nil?
-        return {status: 'failed', message: 'login failed.'}
+        return {status: false, message: 'login failed.'}
       end
 
       stocks = DomesticStocks.new(contents, @encode)
-      result = {status: 'succeeded'}
+      result = {status: true}
       result.merge!(stocks.get)
       result
     end
