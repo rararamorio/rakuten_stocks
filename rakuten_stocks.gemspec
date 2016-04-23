@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Rakuten Securities Scraping.}
   spec.description   = %q{Rakuten Securities Scraping.}
-  spec.homepage      = "http://morio.hateblo.jp/"
+  spec.homepage      = "https://github.com/rararamorio/rakuten_stocks"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
