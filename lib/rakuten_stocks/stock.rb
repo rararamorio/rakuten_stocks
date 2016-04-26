@@ -10,5 +10,9 @@ module RakutenStocks
                     :market_price,          # 時価評価額
                     :profits_and_loses,     # 評価損益
                     :profits_and_loses_rate # 評価損益率
+
+    def initialize
+      yield(self) if block_given?
+    end
   end
 end
