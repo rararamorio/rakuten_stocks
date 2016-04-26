@@ -23,6 +23,13 @@ Or install it yourself as:
 ```ruby
 require 'rakuten_stocks'
 
-rakuten = RakutenStocks::Client.new('YourId', 'YourPwd')
+# initialize
+rakuten = RakutenStocks::Client.new do |config|
+  config.id = 'YourId'
+  config.pwd = 'YourPWD'
+  config.encode = 'UTF-8' # UTF-8 or EUC-JP
+  config.user_agent_alias = 'Windows Mozilla' # README: http://mechanize.rubyforge.org/Mechanize.html#5Buntitled-5D
+end
+
 p rakuten.domestic_stocks #=> {:status=>true,:total=>{:appraisal_price_data=>..., :profit_loss_data=>...},:sp=>[...],:nisa=>[...]}
 ```
