@@ -9,7 +9,15 @@ module RakutenStocks
                     :current_price,         # 現在値
                     :market_price,          # 時価評価額
                     :profits_and_loses,     # 評価損益
-                    :profits_and_loses_rate # 評価損益率
+                    :profits_and_loses_rate,# 評価損益率
+                    :opening_price,        # 初値
+                    :high_price,            # 高値
+                    :low_price,             # 安値
+                    :per,
+                    :pbr,
+                    :dividend,              # 配当
+                    :ex_dividend,           # 配当落日
+                    :inter_ex_dividend      # 中配落日
 
     def initialize
       yield(self) if block_given?

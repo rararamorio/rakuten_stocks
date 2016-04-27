@@ -17,7 +17,12 @@ module RakutenStocks
     end
 
     def member_contents(path)
-      access(@member_url + path).content
+      begin
+        return Nokogiri::HTML(toencode(@encode, access(@member_url + path).content), nil, @encode)
+      rescue
+        # login failed!!
+      end
+      nil
     end
 
     private
@@ -43,13 +48,8 @@ module RakutenStocks
     def location(contents)
       script = xpath_children(contents, '//script')
       script.match(/<!--\nlocation.href = \"(.+)\";\n\/\/ -->/) do |location|
-        begin
-          return Nokogiri::HTML(toencode(@encode, member_contents(location[1])), nil, @encode)
-        rescue
-          # login failed!!
-        end
+        member_contents(location[1])
       end
-      nil
     end
     
     def access(url)

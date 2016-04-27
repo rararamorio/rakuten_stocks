@@ -1,8 +1,9 @@
 module RakutenStocks
   class DomesticStocks
-    def initialize(login)
-      @encode = login.encode
-      @contents = login.stk_pos_mode_login
+    def initialize(http)
+      @encode = http.encode
+      @contents = http.stk_pos_mode_login
+      @http = http
     end
 
     def get
@@ -70,6 +71,8 @@ module RakutenStocks
           setting.profits_and_loses = xpath_to_f(node, 'td[11]/div[1]/nobr/span')
           setting.profits_and_loses_rate = xpath_to_f(node, 'td[11]/div[2]/nobr/span')
         end
+        parse_domestic_stock(stock)
+
         result.push stock
       end
       {sp: result}
@@ -91,9 +94,23 @@ module RakutenStocks
           setting.profits_and_loses = xpath_to_f(node, 'td[8]/div[1]/nobr/span')
           setting.profits_and_loses_rate = xpath_to_f(node, 'td[8]/div[2]/nobr/span')
         end
+         parse_domestic_stock(stock)
+
         result.push stock
       end
       {nisa: result}
+    end
+    
+    def parse_domestic_stock(stock)
+      contents = @http.member_contents(stock.url)
+      stock.opening_price = xpath_to_f(contents, "//div[@id='update_table2']/table[1]/tbody/tr[1]/td[1]")
+      stock.high_price = xpath_to_f(contents, "//div[@id='update_table2']/table[1]/tbody/tr[2]/td[1]")
+      stock.low_price = xpath_to_f(contents, "//div[@id='update_table2']/table[1]/tbody/tr[3]/td[1]")
+      stock.per = xpath_to_f(contents, "//div[@id='yori_table2']/table[2]/tbody/tr[1]/td[1]")
+      stock.pbr = xpath_to_f(contents, "//div[@id='yori_table2']/table[2]/tbody/tr[1]/td[2]")
+      stock.dividend = xpath_to_f(contents, "//table[@id='auto_update_field_info_jp_stock_price']/tr/td[1]/form[2]/div[2]/div[2]/table[2]/tbody/tr[1]/td[@class='align-R'][2]")
+      stock.ex_dividend = xpath_to_date(contents, "//table[@id='auto_update_field_info_jp_stock_price']/tr/td[1]/form[2]/div[2]/div[2]/table[2]/tbody/tr[2]/td[@class='align-R'][5]")
+      stock.inter_ex_dividend = xpath_to_date(contents, "//table[@id='auto_update_field_info_jp_stock_price']/tr/td[1]/form[2]/div[2]/div[2]/table[2]/tbody/tr[3]/td[@class='align-R'][4]")
     end
   end
 end
