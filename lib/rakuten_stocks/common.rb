@@ -10,15 +10,19 @@ module RakutenStocks
     end
 
     def xpath_children(node, xpath)
-      node.xpath(xpath).children.to_s
+      node.xpath(xpath).children[0].to_s.strip
     end
 
     def xpath_to_f(node, xpath)
-      xpath_children(node, xpath).strip.gsub(',', '').gsub('%', '').to_f
+      xpath_children(node, xpath).gsub(',', '').gsub('%', '').gsub("&nbsp;",'').gsub('倍','').to_f
     end
 
     def xpath_to_i(node, xpath)
-      xpath_children(node, xpath).strip.gsub(',', '').to_i
+      xpath_children(node, xpath).gsub(',', '').to_i
+    end
+    
+    def xpath_to_date(node, xpath)
+      Date.strptime(xpath_children(node, xpath), "%y/%m/%d")
     end
 
     module_function :toencode
